@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         name=""
+         point="org.eclipse.scout.service.services">
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.services.IStandardOutlineService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.IEditerOperationsService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.services.lookup.compte.ICompteLookupService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.ICreerOperationService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.comptes.IEditerCompteService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.services.IRechercherAchatsService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.ISelectionnerDonneesService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.IComptesParticuliersService">
+      </proxy>
+   </extension>
+
+</plugin>

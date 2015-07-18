@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="GestionOperations" sequenceNumber="12">
+<locations>
+<location path="${eclipse_home}\" type="Directory"/>
+<location path="${scout_rap_target}" type="Directory"/>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.bsiag.scout.rt.server.jdbc.mysql5117.source.feature.group" version="5.1.17.20150610-0907"/>
+<repository location="http://tools.bsiag.com/marketplace/jdbc/5.0"/>
+</location>
+<location path="D:\target-platform-gdo\" type="Directory"/>
+</locations>
+<launcherArgs>
+<vmArgs>-Xms256m -Xmx512m</vmArgs>
+</launcherArgs>
+</target>

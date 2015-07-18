@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RAP Bundle
+Bundle-SymbolicName: mg.alpha.gestion.operations.ui.rap;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: mg.alpha.gestion.operations.ui.rap.Activator
+Bundle-Vendor: Eclipse Scout Project
+Export-Package: mg.alpha.gestion.operations.ui.rap
+Require-Bundle: org.eclipse.core.runtime,
+ mg.alpha.gestion.operations.client,
+ mg.alpha.gestion.operations.shared,
+ org.eclipse.scout.rt.ui.rap,
+ org.eclipse.scout.net,
+ org.eclipse.equinox.http.registry,
+ org.eclipse.scout.rt.server.commons,
+ org.eclipse.scout.rt.ui.rap.mobile,
+ org.eclipse.scout.rt.ui.rap.theme.rayo,
+ org.eclipse.scout.rt.client.mobile
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

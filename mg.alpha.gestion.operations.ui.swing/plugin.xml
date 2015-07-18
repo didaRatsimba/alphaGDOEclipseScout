@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <extension id="app" name="Application" point="org.eclipse.core.runtime.applications">
+    <application>
+      <run class="mg.alpha.gestion.operations.ui.swing.SwingApplication"/>
+    </application>
+  </extension>
+  <extension id="product" point="org.eclipse.core.runtime.products">
+    <product
+          application="mg.alpha.gestion.operations.ui.swing.app"
+          name="GestionOperations">
+       <property
+             name="appName"
+             value="GestionOperations">
+       </property>
+    </product>
+  </extension>
+</plugin>
