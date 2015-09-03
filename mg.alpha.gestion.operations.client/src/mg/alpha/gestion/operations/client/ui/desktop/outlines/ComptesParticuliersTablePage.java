@@ -120,6 +120,11 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("compteParticulier");
       }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 200;
+      }
     }
 
     @Order(3000.0)
@@ -128,6 +133,11 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("compteDenvoi");
+      }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 200;
       }
     }
 
@@ -138,6 +148,11 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("montantEnvoye");
       }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 150;
+      }
     }
 
     @Order(5000.0)
@@ -147,6 +162,11 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("prixDeVenteUnite");
       }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 200;
+      }
     }
 
     @Order(6000.0)
@@ -155,6 +175,11 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("dateEnvoi");
+      }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 200;
       }
     }
 

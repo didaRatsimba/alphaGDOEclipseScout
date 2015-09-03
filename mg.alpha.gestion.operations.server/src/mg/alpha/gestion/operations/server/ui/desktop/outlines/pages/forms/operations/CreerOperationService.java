@@ -50,7 +50,7 @@ public class CreerOperationService extends AbstractService implements ICreerOper
         .append(":compteId, ")//
         .append(":deviseGroup, ")//
         .append(":montantOperation, ")//
-        .append(":coursColumnHeader ")//
+        .append(":coursColumnHeader, ")//
         .append(":idFromTimestamp")//
         .append(")")//
         ;

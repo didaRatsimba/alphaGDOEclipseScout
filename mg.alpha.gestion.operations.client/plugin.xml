@@ -36,6 +36,14 @@
             factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
             class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.IComptesParticuliersService">
       </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.IPartagerVersComptesParticuliersService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.services.lookup.ICompteParticulierLookupService">
+      </proxy>
    </extension>
 
 </plugin>

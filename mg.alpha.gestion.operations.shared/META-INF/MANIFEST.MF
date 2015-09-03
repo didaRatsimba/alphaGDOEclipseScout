@@ -8,6 +8,7 @@ Export-Package: mg.alpha.gestion.operations.shared,
  mg.alpha.gestion.operations.shared.services,
  mg.alpha.gestion.operations.shared.services.code,
  mg.alpha.gestion.operations.shared.services.common.text,
+ mg.alpha.gestion.operations.shared.services.lookup,
  mg.alpha.gestion.operations.shared.services.lookup.compte,
  mg.alpha.gestion.operations.shared.ui.desktop.outlines,
  mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.bilan,
@@ -18,5 +19,5 @@ Export-Package: mg.alpha.gestion.operations.shared,
  mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.operations
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

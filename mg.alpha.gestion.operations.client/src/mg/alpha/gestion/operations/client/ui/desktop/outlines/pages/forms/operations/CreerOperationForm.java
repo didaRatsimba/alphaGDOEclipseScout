@@ -4,6 +4,7 @@
 package mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
@@ -79,6 +80,11 @@ public class CreerOperationForm extends AbstractForm {
    */
   public CreerOperationForm() throws ProcessingException {
     super();
+  }
+
+  @Override
+  protected boolean getConfiguredAskIfNeedSave() {
+    return false;
   }
 
   @Override
@@ -271,6 +277,12 @@ public class CreerOperationForm extends AbstractForm {
         protected void execInitField() throws ProcessingException {
           setValue(new GregorianCalendar().getTime());
         }
+
+        @Override
+        protected Date execValidateValue(Date rawValue) throws ProcessingException {
+          activerBoutonOk();
+          return super.execValidateValue(rawValue);
+        }
       }
 
       @Order(2000.0)
@@ -289,6 +301,7 @@ public class CreerOperationForm extends AbstractForm {
         @Override
         protected void execChangedValue() throws ProcessingException {
           activerBoutonRechercheAchats();
+          activerBoutonOk();
         }
 
         @Override
@@ -317,6 +330,12 @@ public class CreerOperationForm extends AbstractForm {
           @Override
           protected String getConfiguredLabel() {
             return TEXTS.get("choixCompte");
+          }
+
+          @Override
+          protected void execChangedValue() throws ProcessingException {
+            activerBoutonOk();
+            super.execChangedValue();
           }
 
           @Override
@@ -435,6 +454,7 @@ public class CreerOperationForm extends AbstractForm {
               editerCompteForm.waitFor();
               getCompteCreeField().setValue(editerCompteForm.getLibelleCompteField().getValue());
               getCompteCreeField().setVisible(true);
+              activerBoutonOk();
             }
           }
         }
@@ -478,6 +498,7 @@ public class CreerOperationForm extends AbstractForm {
           @Override
           protected void execChangedValue() throws ProcessingException {
             setCompteId(getValue());
+            activerBoutonOk();
             super.execChangedValue();
           }
         }
@@ -499,7 +520,14 @@ public class CreerOperationForm extends AbstractForm {
         @Override
         protected void execChangedValue() throws ProcessingException {
           activerBoutonRechercheAchats();
+          activerBoutonOk();
           super.execChangedValue();
+        }
+
+        @Override
+        protected BigDecimal execValidateValue(BigDecimal rawValue) throws ProcessingException {
+          activerBoutonRechercheAchats();
+          return super.execValidateValue(rawValue);
         }
       }
 
@@ -519,6 +547,13 @@ public class CreerOperationForm extends AbstractForm {
         @Override
         protected void execChangedValue() throws ProcessingException {
           activerBoutonRechercheAchats();
+          activerBoutonOk();
+        }
+
+        @Override
+        protected BigDecimal execValidateValue(BigDecimal rawValue) throws ProcessingException {
+          activerBoutonRechercheAchats();
+          return super.execValidateValue(rawValue);
         }
       }
 
@@ -536,8 +571,9 @@ public class CreerOperationForm extends AbstractForm {
         }
 
         @Override
-        protected void execInitField() throws ProcessingException {
-          setValue(DeviseCodeType.UsdCode.ID);
+        protected void execChangedValue() throws ProcessingException {
+          activerBoutonOk();
+          super.execChangedValue();
         }
       }
 
@@ -609,16 +645,6 @@ public class CreerOperationForm extends AbstractForm {
 
           @Override
           protected void execClickAction() throws ProcessingException {
-//            AfficherListeVendreWizard wizard = new AfficherListeVendreWizard();
-//            wizard.setCoursChangeValue(getCoursColumnHeaderField().getValue());
-//            wizard.setSommeAVendre(getMontantOperationField().getValue());
-
-//            wizard.setIdFromTimestamp(getIdFromTimestamp());
-//            if (getDebitParOperationMap() == null) {
-//              setDebitParOperationMap(new HashMap<Long, BigDecimal>());
-//            }
-//            wizard.setDebitParOpIdMapResult(getDebitParOperationMap());
-//            wizard.start();
             SelectionnerDonneesForm selectionnerDonnesForm = new SelectionnerDonneesForm();
             selectionnerDonneesFormData = new SelectionnerDonneesFormData();
             selectionnerDonneesFormData.setSommeAVendre(getMontantOperationField().getValue());
@@ -631,7 +657,6 @@ public class CreerOperationForm extends AbstractForm {
             selectionnerDonnesForm.startNew();
             selectionnerDonnesForm.waitFor();
 
-            //TODO [DIDA] continuer ici sans wizard
           }
         }
       }
@@ -643,6 +668,12 @@ public class CreerOperationForm extends AbstractForm {
         getAfficherListeVendreButton().setEnabled(getMontantOperationField() != null && getMontantOperationField().getValue() != null //
         && getCoursColumnHeaderField() != null && getCoursColumnHeaderField().getValue() != null //
         && getTypeGroup().getValue().equalsIgnoreCase("v"));
+      }
+
+      public void activerBoutonOk() {
+        getOkButton().setEnabled(getMontantOperationField() != null && getMontantOperationField().getValue() != null && getMontantOperationField().getValue().signum() == 1//
+        && getCoursColumnHeaderField() != null && getCoursColumnHeaderField().getValue() != null && getCoursColumnHeaderField().getValue().signum() == 1//
+        && getCompteId().longValue() > 0 && !getDateOperationField().isEmpty());
       }
     }
 

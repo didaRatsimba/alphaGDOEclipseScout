@@ -107,6 +107,11 @@ public class BilanBeneficesTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("DateVente");
       }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 200;
+      }
     }
 
     @Order(2000.0)
@@ -119,7 +124,7 @@ public class BilanBeneficesTablePage extends AbstractPageWithTable<Table> {
 
       @Override
       protected int getConfiguredWidth() {
-        return 150;
+        return 200;
       }
     }
 
@@ -133,7 +138,7 @@ public class BilanBeneficesTablePage extends AbstractPageWithTable<Table> {
 
       @Override
       protected int getConfiguredWidth() {
-        return 200;
+        return 250;
       }
     }
 
@@ -147,7 +152,7 @@ public class BilanBeneficesTablePage extends AbstractPageWithTable<Table> {
 
       @Override
       protected int getConfiguredWidth() {
-        return 150;
+        return 250;
       }
     }
   }

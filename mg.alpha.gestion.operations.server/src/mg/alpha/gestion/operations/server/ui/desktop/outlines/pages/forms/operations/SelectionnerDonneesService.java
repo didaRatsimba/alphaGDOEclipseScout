@@ -34,6 +34,7 @@ public class SelectionnerDonneesService extends AbstractService implements ISele
     Map<Long, BigDecimal> mapDebit = formData.getDebitParOperationIdMap();
     Map<Long, BigDecimal> sommePartagee = formData.getSommeAPartagerParCompteIdMap();
     Map<Long, BigDecimal> mapBenef = formData.getBeneficeParAchatId();
+    long sommeDejaPartagee = 0L;
     try {
       for (Long opId : mapDebit.keySet()) {
 
@@ -53,17 +54,29 @@ public class SelectionnerDonneesService extends AbstractService implements ISele
       }
       for (Long compteId : sommePartagee.keySet()) {
         if (compteId != null) {
+          BigDecimal eachsomme = sommePartagee.get(compteId);
+          sommeDejaPartagee += eachsomme.longValue();
           StringBuilder reqPartage = new StringBuilder("")//
           .append("insert into somme_par_compte_particulier ")//
           .append("(spcp_real_id, spcp_timestamp, spcp_compte_id, spcp_somme_envoyee) ")//
           .append("values (null , ")//
-          .append(formData.getSelectionnerDonneesNr()).append(" , ").append(compteId).append(" , ").append(sommePartagee.get(compteId))//
+          .append(formData.getSelectionnerDonneesNr()).append(" , ").append(compteId).append(" , ").append(eachsomme)//
           .append(")")//
           ;
 
           SQL.getConnection().prepareStatement(reqPartage.toString()).executeUpdate();
         }
       }
+
+      StringBuilder reqVenteInfo = new StringBuilder("")//
+      .append("insert into vente_infos_complementaires ")//
+      .append("(vic_id, vic_timestamp, vic_somme_a_partager) ")//
+      .append("values (null , ")//
+      .append(formData.getSelectionnerDonneesNr()).append(" , ").append(new BigDecimal(formData.getSommeAVendre().longValue() - sommeDejaPartagee))//
+      .append(")")//
+      ;
+
+      SQL.getConnection().prepareStatement(reqVenteInfo.toString()).executeUpdate();
 
     }
     catch (SQLException e) {

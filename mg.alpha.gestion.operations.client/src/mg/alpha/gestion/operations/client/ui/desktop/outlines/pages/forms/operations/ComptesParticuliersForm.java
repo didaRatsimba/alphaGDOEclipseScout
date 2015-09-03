@@ -58,6 +58,11 @@ public class ComptesParticuliersForm extends AbstractForm {
   }
 
   @Override
+  protected boolean getConfiguredAskIfNeedSave() {
+    return false;
+  }
+
+  @Override
   protected int getConfiguredDisplayHint() {
     return DISPLAY_HINT_POPUP_WINDOW;
   }

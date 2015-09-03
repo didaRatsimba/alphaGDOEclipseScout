@@ -3,6 +3,7 @@
  */
 package mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.operations;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -33,6 +34,7 @@ import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operat
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.OperationsSearchForm;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.operations.OperationTablePage.Table;
 import mg.alpha.gestion.operations.shared.services.IStandardOutlineService;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.OperationsSearchFormData;
@@ -130,6 +132,13 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
      */
     public TimestampColumn getTimestampColumn() {
       return getColumnSet().getColumnByClass(TimestampColumn.class);
+    }
+
+    /**
+     * @return the SommeAPartagerComplColumn
+     */
+    public SommeAPartagerComplColumn getSommeAPartagerComplColumn() {
+      return getColumnSet().getColumnByClass(SommeAPartagerComplColumn.class);
     }
 
     /**
@@ -291,6 +300,20 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(1000.0)
+    public class SommeAPartagerComplColumn extends AbstractBigDecimalColumn {
+
+      @Override
+      protected boolean getConfiguredDisplayable() {
+        return false;
+      }
+
+      @Override
+      protected boolean getConfiguredVisible() {
+        return false;
+      }
+    }
+
+    @Order(1000.0)
     public class EditerOperationsMenu extends AbstractExtensibleMenu {
 
       @Override
@@ -382,6 +405,63 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
               }
               else {
                 setEnabled(false);
+              }
+            }
+          }
+        }
+        super.execOwnerValueChanged(newOwnerValue);
+      }
+    }
+
+    @Order(4000.0)
+    public class PartagerVersComptesParticuliersMenu extends AbstractExtensibleMenu {
+
+      private Long sommeRestantePartage;
+      private Long creationTimestamp;
+
+      @Override
+      protected boolean getConfiguredEnabled() {
+        return false;
+      }
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("partagerVersComptesParticuliers");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        PartagerVersComptesParticuliersForm form = new PartagerVersComptesParticuliersForm();
+        form.setPartagerVersComptesParticuliersNr(sommeRestantePartage);
+        form.setCreationTimestamp(creationTimestamp);
+        form.startNew();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+
+      @Override
+      protected void execOwnerValueChanged(Object newOwnerValue) throws ProcessingException {
+
+        if (newOwnerValue instanceof ArrayList<?>) {
+          ArrayList<?> values = (ArrayList<?>) newOwnerValue;
+          for (Object eachValue : values) {
+            if (eachValue instanceof InternalTableRow) {
+              InternalTableRow row = (InternalTableRow) eachValue;
+              ICell cell = row.getCell(getColumnSet().getColumnByClass(SommeAPartagerComplColumn.class));
+              BigDecimal sommeRestante = null;
+              if (cell != null && cell.getValue() instanceof BigDecimal) {
+                sommeRestante = (BigDecimal) cell.getValue();
+                sommeRestantePartage = sommeRestante.longValue();
+                setEnabled(sommeRestantePartage > 0);
+              }
+              else {
+                setEnabled(false);
+              }
+              ICell cellTimestamp = row.getCell(getColumnSet().getColumnByClass(TimestampColumn.class));
+              if (cellTimestamp != null && cellTimestamp.getValue() instanceof Long && ((Long) cellTimestamp.getValue()) > 0) {
+                creationTimestamp = (Long) cellTimestamp.getValue();
               }
             }
           }

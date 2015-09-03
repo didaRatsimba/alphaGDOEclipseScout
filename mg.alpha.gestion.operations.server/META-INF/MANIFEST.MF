@@ -9,6 +9,7 @@ Export-Package: mg.alpha.gestion.operations.server,
  mg.alpha.gestion.operations.server.services,
  mg.alpha.gestion.operations.server.services.common.security,
  mg.alpha.gestion.operations.server.services.common.sql,
+ mg.alpha.gestion.operations.server.services.lookup,
  mg.alpha.gestion.operations.server.services.lookup.compte,
  mg.alpha.gestion.operations.server.ui.desktop.outlines.pages.forms.comptes,
  mg.alpha.gestion.operations.server.ui.desktop.outlines.pages.forms.operations
@@ -19,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.http.registry,
  org.eclipse.scout.jaxws216;bundle-version="2.1.6",
  com.bsiag.scout.rt.server.jdbc.mysql5117
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0"
 Bundle-ActivationPolicy: lazy

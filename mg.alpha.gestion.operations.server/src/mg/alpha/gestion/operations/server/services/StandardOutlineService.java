@@ -3,6 +3,8 @@
  */
 package mg.alpha.gestion.operations.server.services;
 
+import java.util.Locale;
+
 import org.eclipse.scout.commons.NumberUtility;
 import org.eclipse.scout.commons.StringUtility;
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -37,12 +39,15 @@ public class StandardOutlineService extends AbstractService implements IStandard
     .append("o.op_date, ")//
     .append("o.op_type, ")//
     .append("c.cpt_nom, ")//
-    .append("o.op_compte_particulier, ").append("o.op_devise, ")//
+    .append("o.op_compte_particulier, ")//
+    .append("o.op_devise, ")//
     .append("o.op_montant, ")//
     .append("o.op_cours_change, ")//
-    .append("o.op_timestamp ")//
+    .append("o.op_timestamp, ")//
+    .append("vic.vic_somme_a_partager ")//
     .append("from operations o ")//
     .append("inner join comptes c on o.op_compte = c.cpt_id ")//
+    .append("left outer join vente_infos_complementaires vic on o.op_timestamp = vic.vic_timestamp ")//
     .append("where 1 = 1 ");// nécessaire car on ne sait pas si des critères existent
 //    .append("and o.op_compte = c.cpt_id ");
     if (operationsSearchFormData.getDateOperationFrom() != null && operationsSearchFormData.getDateOperationTo() != null) {
@@ -71,7 +76,8 @@ public class StandardOutlineService extends AbstractService implements IStandard
     }
     req.append("order by o.op_date desc ")//
     .append("into :{page.opId}, :{page.dateOperation}, :{page.typeOperation}, ")//
-    .append(":{page.compteOperation}, :{page.compteParticulier}, :{page.devise}, :{page.montantOperation}, :{page.coursApplique}, :{page.timestamp}");
+    //, :{page.sommeAPartagerCompl}
+    .append(":{page.compteOperation}, :{page.compteParticulier}, :{page.devise}, :{page.montantOperation}, :{page.coursApplique}, :{page.timestamp}, :{page.sommeAPartagerCompl}");
     SQL.selectInto(req.toString(), new NVPair("ope", operationsSearchFormData), new NVPair("page", pageData));
     return pageData;
   }
@@ -83,7 +89,8 @@ public class StandardOutlineService extends AbstractService implements IStandard
     req.append("select c.cpt_id, c.cpt_nom, c.cpt_particulier from comptes c ")//
     .append("where 1=1 ");//
     if (searchFormData.getLibelleCompte() != null && !StringUtility.isNullOrEmpty(searchFormData.getLibelleCompte().getValue())) {
-      req.append("and UPPER(c.cpt_nom) LIKE UPPER(:{search.libelleCompte}) ");//
+      String s = searchFormData.getLibelleCompte().getValue().toUpperCase(Locale.FRANCE);
+      req.append("and UPPER(c.cpt_nom) LIKE '%").append(s).append("%'");//
     }
     if (searchFormData.getFiltrerParticulier() != null && searchFormData.getFiltrerParticulier().booleanValue()) {
       if (searchFormData.getCompteParticulier() != null) {
@@ -96,8 +103,8 @@ public class StandardOutlineService extends AbstractService implements IStandard
       }
 
     }
-    req.append("order by c.cpt_id asc ")//
-    .append("into :{page.idCompte}, :{page.libelleCompte}, :{page.compteParticulier}")//
+    req.append(" order by c.cpt_id asc ")//
+    .append(" into :{page.idCompte}, :{page.libelleCompte}, :{page.compteParticulier}")//
     ;
     SQL.selectInto(req.toString(), new NVPair("search", searchFormData), new NVPair("page", pageData));
     return pageData;
@@ -111,7 +118,8 @@ public class StandardOutlineService extends AbstractService implements IStandard
     BilanBeneficesTablePageData pageData = new BilanBeneficesTablePageData();
     StringBuilder req = new StringBuilder();
     req.append("select d.dpo_real_id, o.op_date, d.dpo_debit, c.cpt_nom, d.dpo_benefice from debit_par_operation d ")//
-    .append("inner join operations o on d.dpo_timestamp = o.op_timestamp ").append("inner join comptes c on o.op_compte = c.cpt_id ")//
+    .append("inner join operations o on d.dpo_timestamp = o.op_timestamp ")//
+    .append("inner join comptes c on o.op_compte = c.cpt_id ")//
     .append("where d.dpo_benefice > 0 ");//
     if (bilanSearchFormData.getEnvoyeA() != null && !StringUtility.isNullOrEmpty(bilanSearchFormData.getEnvoyeA().getValue())) {
       req.append("and UPPER(c.cpt_nom) LIKE UPPER(:{search.envoyeA}) ");//

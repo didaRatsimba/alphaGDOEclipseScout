@@ -63,6 +63,7 @@ public class OperationsTablePageData extends AbstractTablePageData {
 
     private static final long serialVersionUID = 1L;
     public static final String opId = "opId";
+    public static final String sommeAPartagerCompl = "sommeAPartagerCompl";
     public static final String timestamp = "timestamp";
     public static final String dateOperation = "dateOperation";
     public static final String typeOperation = "typeOperation";
@@ -73,6 +74,7 @@ public class OperationsTablePageData extends AbstractTablePageData {
     public static final String montantOperation = "montantOperation";
     public static final String coursApplique = "coursApplique";
     private Long m_opId;
+    private BigDecimal m_sommeAPartagerCompl;
     private Long m_timestamp;
     private Date m_dateOperation;
     private String m_typeOperation;
@@ -99,6 +101,21 @@ public class OperationsTablePageData extends AbstractTablePageData {
      */
     public void setOpId(Long opId) {
       m_opId = opId;
+    }
+
+    /**
+     * @return the SommeAPartagerCompl
+     */
+    public BigDecimal getSommeAPartagerCompl() {
+      return m_sommeAPartagerCompl;
+    }
+
+    /**
+     * @param sommeAPartagerCompl
+     *          the SommeAPartagerCompl to set
+     */
+    public void setSommeAPartagerCompl(BigDecimal sommeAPartagerCompl) {
+      m_sommeAPartagerCompl = sommeAPartagerCompl;
     }
 
     /**

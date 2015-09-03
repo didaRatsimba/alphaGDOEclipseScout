@@ -55,6 +55,11 @@ public class EditerOperationsForm extends AbstractForm {
   }
 
   @Override
+  protected boolean getConfiguredAskIfNeedSave() {
+    return false;
+  }
+
+  @Override
   protected String getConfiguredDisplayViewId() {
     return VIEW_ID_CENTER;
   }

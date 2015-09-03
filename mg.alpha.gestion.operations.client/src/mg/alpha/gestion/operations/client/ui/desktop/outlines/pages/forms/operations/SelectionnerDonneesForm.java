@@ -75,6 +75,11 @@ public class SelectionnerDonneesForm extends AbstractForm {
   }
 
   @Override
+  protected boolean getConfiguredAskIfNeedSave() {
+    return false;
+  }
+
+  @Override
   protected String getConfiguredTitle() {
     return TEXTS.get("selectionnerDonnees");
   }
@@ -340,27 +345,17 @@ public class SelectionnerDonneesForm extends AbstractForm {
                 sommeDebit += eachValue.longValue();
               }
             }
-            if (sommeDebit == getSommeAVendre().longValue()) {
-//              SelectionnerDonneesForm.this.getSommeACompleterField().setBackgroundColor("00FF00");
-//              SelectionnerDonneesForm.this.getSommeACompleterField().setLabelForegroundColor("000000");
-              getOkButton().setEnabled(true);
-            }
-            else {
-//              SelectionnerDonneesForm.this.getSommeACompleterField().setBackgroundColor("FF0000");
-              if (sommeDebit < getSommeAVendre().longValue()) {
-                getSommeManquanteField().setValue(BigDecimal.valueOf(getSommeAVendre().longValue() - sommeDebit));
-              }
-              getOkButton().setEnabled(false);
-            }
+            getSommeManquanteField().setValue(BigDecimal.valueOf(getSommeAVendre().longValue() - sommeDebit));
+            getOkButton().setEnabled(sommeDebit == getSommeAVendre().longValue());
           }
 
           @Override
           protected BigDecimal execValidateValue(ITableRow row, BigDecimal rawValue) throws ProcessingException {
             if (getDebitParOperationIdMap() == null) {
-              setDebitParOperationIdMap(new HashMap<>());
+              setDebitParOperationIdMap(new HashMap<Long, BigDecimal>());
             }
             if (getBeneficeParAchatId() == null) {
-              setBeneficeParAchatId(new HashMap<>());
+              setBeneficeParAchatId(new HashMap<Long, BigDecimal>());
             }
             if (rawValue == null) {
               setBackgroundColor("FFFFFF");

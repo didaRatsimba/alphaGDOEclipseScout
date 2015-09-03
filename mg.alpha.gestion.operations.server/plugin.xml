@@ -64,6 +64,16 @@
             class="mg.alpha.gestion.operations.server.ui.desktop.outlines.pages.forms.operations.ComptesParticuliersService"
             session="mg.alpha.gestion.operations.server.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="mg.alpha.gestion.operations.server.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersService"
+            session="mg.alpha.gestion.operations.server.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="mg.alpha.gestion.operations.server.services.lookup.CompteParticulierLookupService"
+            session="mg.alpha.gestion.operations.server.ServerSession">
+      </service>
    </extension>
    <extension
          name=""

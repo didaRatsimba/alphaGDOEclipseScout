@@ -58,6 +58,11 @@ public class EditerCompteForm extends AbstractForm {
   }
 
   @Override
+  protected boolean getConfiguredAskIfNeedSave() {
+    return false;
+  }
+
+  @Override
   protected String getConfiguredTitle() {
     return TEXTS.get("editerCompte");
   }
