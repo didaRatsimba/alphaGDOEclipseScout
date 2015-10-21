@@ -24,6 +24,7 @@ import org.eclipse.scout.service.SERVICES;
 
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.comptes.ComptesTablePage.Table;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.comptes.EditerCompteForm;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.comptes.SupprimerCompteForm;
 import mg.alpha.gestion.operations.shared.services.IStandardOutlineService;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.comptes.ComptesTablePageData;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.comptes.FiltrerComptesSearchFormData;
@@ -152,6 +153,26 @@ public class ComptesTablePage extends AbstractPageWithTable<Table> {
       protected void execAction() throws ProcessingException {
         EditerCompteForm form = new EditerCompteForm();
         form.startNew();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(3000.0)
+    public class SupprimerCompteMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("supprimerCompte");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        SupprimerCompteForm form = new SupprimerCompteForm();
+        form.setSupprimerCompteNr(getIdCompteColumn().getSelectedValue());
+        form.startModify();
         form.waitFor();
         if (form.isFormStored()) {
           reloadPage();

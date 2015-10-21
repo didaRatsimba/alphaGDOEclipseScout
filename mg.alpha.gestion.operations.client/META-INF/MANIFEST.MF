@@ -5,6 +5,7 @@ Bundle-SymbolicName: mg.alpha.gestion.operations.client;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: mg.alpha.gestion.operations.client.Activator
 Export-Package: mg.alpha.gestion.operations.client,
+ mg.alpha.gestion.operations.client.mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations,
  mg.alpha.gestion.operations.client.ui.desktop,
  mg.alpha.gestion.operations.client.ui.desktop.outlines,
  mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.bilan,

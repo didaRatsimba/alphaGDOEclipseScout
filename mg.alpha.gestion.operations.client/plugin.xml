@@ -44,6 +44,14 @@
             factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
             class="mg.alpha.gestion.operations.shared.services.lookup.ICompteParticulierLookupService">
       </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.ISupprimerOperationService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.comptes.ISupprimerCompteService">
+      </proxy>
    </extension>
 
 </plugin>

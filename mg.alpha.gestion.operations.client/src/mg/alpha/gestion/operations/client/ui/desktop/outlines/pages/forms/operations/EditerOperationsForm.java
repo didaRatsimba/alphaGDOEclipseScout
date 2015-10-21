@@ -14,6 +14,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.IGroupBoxBodyGrid;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.internal.VerticalSmartGroupBoxBodyGrid;
+import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.labelfield.AbstractLabelField;
 import org.eclipse.scout.rt.client.ui.form.fields.radiobuttongroup.AbstractRadioButtonGroup;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
@@ -30,6 +31,7 @@ import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operat
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.EditerOperationGroupBox.DateOperationField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.EditerOperationGroupBox.DesignationField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.EditerOperationGroupBox.DeviseGroup;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.EditerOperationGroupBox.FraisDenvoiField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.EditerOperationGroupBox.TypeAllLitteralGroup;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm.MainBox.OkButton;
 import mg.alpha.gestion.operations.shared.services.code.DeviseCodeType;
@@ -147,6 +149,13 @@ public class EditerOperationsForm extends AbstractForm {
    */
   public EditerOperationGroupBox getEditerOperationGroupBox() {
     return getFieldByClass(EditerOperationGroupBox.class);
+  }
+
+  /**
+   * @return the FraisDenvoiField
+   */
+  public FraisDenvoiField getFraisDenvoiField(){
+    return getFieldByClass(FraisDenvoiField.class);
   }
 
   /**
@@ -281,6 +290,15 @@ public class EditerOperationsForm extends AbstractForm {
         @Override
         protected String getConfiguredLabel() {
           return TEXTS.get("coursApplique");
+        }
+      }
+
+      @Order(9000.0)
+      public class FraisDenvoiField extends AbstractIntegerField {
+
+        @Override
+        protected String getConfiguredLabel() {
+          return TEXTS.get("fraisDenvoi");
         }
       }
     }

@@ -45,7 +45,7 @@ public class EditerCompteService extends AbstractService implements IEditerCompt
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     StringBuilder req = new StringBuilder("")//
-    .append("select c.cpt_nom, c.cpt_particulier from comptes c where c.cpt_id = :{page.editerCompteNr} into :{page.libelleCompte}, :{page.compteParticulier}")//
+    .append("select c.cpt_nom, c.cpt_particulier from comptes c where c.cpt_id = :{page.editerCompteNr} and c.cpt_actif = 1 into :{page.libelleCompte}, :{page.compteParticulier}")//
     ;
     SQL.selectInto(req.toString(), new NVPair("page", formData));
     return formData;

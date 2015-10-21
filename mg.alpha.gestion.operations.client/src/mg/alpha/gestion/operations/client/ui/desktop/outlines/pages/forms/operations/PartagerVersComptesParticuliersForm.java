@@ -15,19 +15,21 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
+import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.shared.TEXTS;
+import org.eclipse.scout.rt.shared.services.lookup.ILookupCall;
 import org.eclipse.scout.service.SERVICES;
 
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.CancelButton;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.CommentaireField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.CompteParticulierField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.OkButton;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.SommeAEnvoyerField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersForm.MainBox.VousPouvezPartagerField;
+import mg.alpha.gestion.operations.shared.services.lookup.CompteParticulierLookupCall;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.IPartagerVersComptesParticuliersService;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.PartagerVersComptesParticuliersFormData;
 import mg.alpha.gestion.operations.shared.ui.desktop.outlines.pages.forms.operations.UpdatePartagerVersComptesParticuliersPermission;
-import mg.alpha.gestion.operations.shared.services.lookup.CompteParticulierLookupCall;
-import org.eclipse.scout.rt.shared.services.lookup.ILookupCall;
 
 /**
  * @author Dida
@@ -116,6 +118,13 @@ public class PartagerVersComptesParticuliersForm extends AbstractForm {
   }
 
   /**
+   * @return the CommentaireField
+   */
+  public CommentaireField getCommentaireField(){
+    return getFieldByClass(CommentaireField.class);
+  }
+
+  /**
    * @return the CompteParticulierField
    */
   public CompteParticulierField getCompteParticulierField() {
@@ -198,6 +207,15 @@ public class PartagerVersComptesParticuliersForm extends AbstractForm {
       @Override
       protected String getConfiguredLabel() {
         return TEXTS.get("sommeAEnvoyer");
+      }
+    }
+
+    @Order(3000.0)
+    public class CommentaireField extends AbstractStringField {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return TEXTS.get("commentaire");
       }
     }
 

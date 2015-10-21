@@ -72,6 +72,7 @@ public class OperationsTablePageData extends AbstractTablePageData {
     public static final String devise = "devise";
     public static final String designation = "designation";
     public static final String montantOperation = "montantOperation";
+    public static final String fraisEnvoi = "fraisEnvoi";
     public static final String coursApplique = "coursApplique";
     private Long m_opId;
     private BigDecimal m_sommeAPartagerCompl;
@@ -83,6 +84,7 @@ public class OperationsTablePageData extends AbstractTablePageData {
     private String m_devise;
     private String m_designation;
     private BigDecimal m_montantOperation;
+    private Integer m_fraisEnvoi;
     private BigDecimal m_coursApplique;
 
     public OperationsTableRowData() {
@@ -236,6 +238,21 @@ public class OperationsTablePageData extends AbstractTablePageData {
      */
     public void setMontantOperation(BigDecimal montantOperation) {
       m_montantOperation = montantOperation;
+    }
+
+    /**
+     * @return the FraisEnvoi
+     */
+    public Integer getFraisEnvoi() {
+      return m_fraisEnvoi;
+    }
+
+    /**
+     * @param fraisEnvoi
+     *          the FraisEnvoi to set
+     */
+    public void setFraisEnvoi(Integer fraisEnvoi) {
+      m_fraisEnvoi = fraisEnvoi;
     }
 
     /**

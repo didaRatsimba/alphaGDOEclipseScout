@@ -29,6 +29,10 @@ public class PartagerVersComptesParticuliersFormData extends AbstractFormData {
   public PartagerVersComptesParticuliersFormData() {
   }
 
+  public Commentaire getCommentaire() {
+    return getFieldByClass(Commentaire.class);
+  }
+
   public CompteParticulier getCompteParticulier() {
     return getFieldByClass(CompteParticulier.class);
   }
@@ -75,6 +79,23 @@ public class PartagerVersComptesParticuliersFormData extends AbstractFormData {
 
   public VousPouvezPartager getVousPouvezPartager() {
     return getFieldByClass(VousPouvezPartager.class);
+  }
+
+  public static class Commentaire extends AbstractValueFieldData<String> {
+
+    private static final long serialVersionUID = 1L;
+
+    public Commentaire() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
+    }
   }
 
   public static class CompteParticulier extends AbstractValueFieldData<Long> {

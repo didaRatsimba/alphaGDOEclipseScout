@@ -74,6 +74,13 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
     }
 
     /**
+     * @return the CommentaireColumn
+     */
+    public CommentaireColumn getCommentaireColumn() {
+      return getColumnSet().getColumnByClass(CommentaireColumn.class);
+    }
+
+    /**
      * @return the CompteDenvoiColumn
      */
     public CompteDenvoiColumn getCompteDenvoiColumn() {
@@ -194,6 +201,15 @@ public class ComptesParticuliersTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected boolean getConfiguredVisible() {
         return false;
+      }
+    }
+
+    @Order(8000.0)
+    public class CommentaireColumn extends AbstractStringColumn {
+
+      @Override
+      protected String getConfiguredHeaderText() {
+        return TEXTS.get("commentaire");
       }
     }
   }

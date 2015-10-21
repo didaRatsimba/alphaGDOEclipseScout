@@ -124,8 +124,16 @@ public class CreerOperationFormData extends AbstractFormData {
     return getPropertyByClass(DebitParOperationMapProperty.class);
   }
 
+  public Designation getDesignation() {
+    return getFieldByClass(Designation.class);
+  }
+
   public DeviseGroup getDeviseGroup() {
     return getFieldByClass(DeviseGroup.class);
+  }
+
+  public FraisDenvoi getFraisDenvoi() {
+    return getFieldByClass(FraisDenvoi.class);
   }
 
   /**
@@ -248,6 +256,23 @@ public class CreerOperationFormData extends AbstractFormData {
     }
   }
 
+  public static class Designation extends AbstractValueFieldData<String> {
+
+    private static final long serialVersionUID = 1L;
+
+    public Designation() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
+    }
+  }
+
   public static class DeviseGroup extends AbstractValueFieldData<String> {
 
     private static final long serialVersionUID = 1L;
@@ -262,6 +287,24 @@ public class CreerOperationFormData extends AbstractFormData {
     protected void initValidationRules(Map<String, Object> ruleMap) {
       super.initValidationRules(ruleMap);
       ruleMap.put(ValidationRule.CODE_TYPE, DeviseCodeType.class);
+    }
+  }
+
+  public static class FraisDenvoi extends AbstractValueFieldData<Integer> {
+
+    private static final long serialVersionUID = 1L;
+
+    public FraisDenvoi() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_VALUE, Integer.MAX_VALUE);
+      ruleMap.put(ValidationRule.MIN_VALUE, Integer.MIN_VALUE);
     }
   }
 

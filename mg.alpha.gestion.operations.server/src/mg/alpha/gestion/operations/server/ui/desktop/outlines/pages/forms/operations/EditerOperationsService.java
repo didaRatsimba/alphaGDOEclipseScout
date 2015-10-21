@@ -56,8 +56,9 @@ public class EditerOperationsService extends AbstractService implements IEditerO
     .append("o.op_devise, ")//
     .append("o.op_montant, ")//
     .append("o.op_cours_change, ")//
-    .append("o.op_designation ").append("from operations o ")//
-    .append("where o.op_id = :editerOperationsNr ")//
+    .append("o.op_designation ")//
+    .append("from operations o ")//
+    .append("where o.op_id = :editerOperationsNr and o.op_actif = 1 ")//
     .append("into :dateOperation, :typeAllLitteralGroup, :compteOperation, :deviseGroup, :montantOperation, :coursApplique, :designation");
     SQL.selectInto(req.toString(), formData);
     return formData;
@@ -82,7 +83,9 @@ public class EditerOperationsService extends AbstractService implements IEditerO
     .append("op_type = :typeAllLitteralGroup , ")//
     .append("op_compte = :compteOperation , ")//
     .append("op_devise = :deviseGroup , ")//
+    .append("op_designation = :designation , ")//
     .append("op_cours_change = :coursApplique , ")//
+    .append("op_cours_change = :fraisDenvoi , ")//
     .append("op_montant = :montantOperation ")//
     .append("where op_id = :editerOperationsNr")//
     ;

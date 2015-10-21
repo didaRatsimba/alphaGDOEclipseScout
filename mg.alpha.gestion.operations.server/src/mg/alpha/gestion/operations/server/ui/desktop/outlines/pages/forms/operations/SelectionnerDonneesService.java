@@ -97,8 +97,8 @@ public class SelectionnerDonneesService extends AbstractService implements ISele
     .append("o.op_cours_change, ")//
     .append("o.op_montant ")//
     .append("from operations o ")//
-    .append("inner join comptes c on o.op_compte = c.cpt_id ")//
-    .append("where UPPER(o.op_type) LIKE UPPER('a') and o.op_cours_change <= :{page.coursChange} ")//
+    .append("inner join comptes c on (o.op_compte = c.cpt_id and c.cpt_actif = 1) ")//
+    .append("where UPPER(o.op_type) LIKE UPPER('a') and o.op_actif = 1 and o.op_cours_change <= :{page.coursChange} ")//
     .append("into :{donnees.achatId}, :{donnees.comptes}, :{donnees.valeurAchat}, :{donnees.montantDisponible} ")//
     ;
     SQL.selectInto(req.toString(), new NVPair("page", formData), new NVPair("donnees", formData.getDonneesFiltrees()));
@@ -107,7 +107,7 @@ public class SelectionnerDonneesService extends AbstractService implements ISele
     .append("c.cpt_id, ")//
     .append("c.cpt_nom ")//
     .append("from comptes c ")//
-    .append("where c.cpt_particulier = true ")//
+    .append("where c.cpt_particulier = true and c.cpt_actif = 1 ")//
     .append("into :{cptpar.compteParticulierId}, :{cptpar.compteParticulier} ")//
     ;
     SQL.selectInto(reqPartage.toString(), new NVPair("cptpar", formData.getComptesParticuliers()));

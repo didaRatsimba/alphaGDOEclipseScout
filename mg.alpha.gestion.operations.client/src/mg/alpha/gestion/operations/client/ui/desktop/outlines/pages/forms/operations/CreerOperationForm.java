@@ -22,9 +22,11 @@ import org.eclipse.scout.rt.client.ui.form.fields.datefield.AbstractDateField;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.IGroupBoxBodyGrid;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.internal.HorizontalGroupBoxBodyGrid;
+import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.labelfield.AbstractLabelField;
 import org.eclipse.scout.rt.client.ui.form.fields.radiobuttongroup.AbstractRadioButtonGroup;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
+import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.extension.client.ui.form.fields.button.AbstractExtensibleRadioButton;
 import org.eclipse.scout.rt.shared.AbstractIcons;
 import org.eclipse.scout.rt.shared.TEXTS;
@@ -45,7 +47,9 @@ import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operat
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.CompteSelectionGroupBox.CreerCompteGroupBox.CreerNouveauCompteButton;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.CoursColumnHeaderField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.DateOperationField;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.DesignationField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.DeviseGroup;
+import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.FraisDenvoiField;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.ListeVendreGroupBox;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.ListeVendreGroupBox.AfficherListeVendreButton;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm.MainBox.InformationsObligatoiresGroupBox.MontantOperationField;
@@ -196,10 +200,24 @@ public class CreerOperationForm extends AbstractForm {
   }
 
   /**
+   * @return the DesignationField
+   */
+  public DesignationField getDesignationField(){
+    return getFieldByClass(DesignationField.class);
+  }
+
+  /**
    * @return the DeviseGroup
    */
   public DeviseGroup getDeviseGroup() {
     return getFieldByClass(DeviseGroup.class);
+  }
+
+  /**
+   * @return the FraisDenvoiField
+   */
+  public FraisDenvoiField getFraisDenvoiField(){
+    return getFieldByClass(FraisDenvoiField.class);
   }
 
   /**
@@ -504,6 +522,15 @@ public class CreerOperationForm extends AbstractForm {
         }
       }
 
+      @Order(3250.0)
+      public class DesignationField extends AbstractStringField {
+
+        @Override
+        protected String getConfiguredLabel() {
+          return TEXTS.get("designation");
+        }
+      }
+
       @Order(4000.0)
       public class MontantOperationField extends AbstractBigDecimalField {
 
@@ -574,6 +601,15 @@ public class CreerOperationForm extends AbstractForm {
         protected void execChangedValue() throws ProcessingException {
           activerBoutonOk();
           super.execChangedValue();
+        }
+      }
+
+      @Order(6250.0)
+      public class FraisDenvoiField extends AbstractIntegerField {
+
+        @Override
+        protected String getConfiguredLabel() {
+          return TEXTS.get("fraisDenvoi");
         }
       }
 

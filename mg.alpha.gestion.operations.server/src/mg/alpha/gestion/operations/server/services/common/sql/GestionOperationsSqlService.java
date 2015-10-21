@@ -17,7 +17,7 @@ public class GestionOperationsSqlService extends AbstractMySqlSqlService {
 
   @Override
   protected String getConfiguredPassword() {
-    return "mysql123";
+    return "123456mysql";
   }
 
   @Override

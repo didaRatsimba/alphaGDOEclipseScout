@@ -69,6 +69,10 @@ public class EditerOperationsFormData extends AbstractFormData {
     return getPropertyByClass(EditerOperationsNrProperty.class);
   }
 
+  public FraisDenvoi getFraisDenvoi() {
+    return getFieldByClass(FraisDenvoi.class);
+  }
+
   public MontantOperation getMontantOperation() {
     return getFieldByClass(MontantOperation.class);
   }
@@ -160,6 +164,24 @@ public class EditerOperationsFormData extends AbstractFormData {
     private static final long serialVersionUID = 1L;
 
     public EditerOperationsNrProperty() {
+    }
+  }
+
+  public static class FraisDenvoi extends AbstractValueFieldData<Integer> {
+
+    private static final long serialVersionUID = 1L;
+
+    public FraisDenvoi() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_VALUE, Integer.MAX_VALUE);
+      ruleMap.put(ValidationRule.MIN_VALUE, Integer.MIN_VALUE);
     }
   }
 

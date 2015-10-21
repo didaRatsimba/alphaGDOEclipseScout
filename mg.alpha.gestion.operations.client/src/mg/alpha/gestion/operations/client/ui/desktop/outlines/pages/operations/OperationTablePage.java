@@ -18,6 +18,7 @@ import org.eclipse.scout.rt.client.ui.basic.cell.ICell;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBigDecimalColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
+import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractIntegerColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.internal.InternalTableRow;
@@ -30,6 +31,7 @@ import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
+import mg.alpha.gestion.operations.client.mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.SupprimerOperationForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.ComptesParticuliersForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.CreerOperationForm;
 import mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations.EditerOperationsForm;
@@ -139,6 +141,13 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
      */
     public SommeAPartagerComplColumn getSommeAPartagerComplColumn() {
       return getColumnSet().getColumnByClass(SommeAPartagerComplColumn.class);
+    }
+
+    /**
+     * @return the FraisEnvoiColumn
+     */
+    public FraisEnvoiColumn getFraisEnvoiColumn() {
+      return getColumnSet().getColumnByClass(FraisEnvoiColumn.class);
     }
 
     /**
@@ -273,6 +282,15 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("montantHeaderColumn");
+      }
+    }
+
+    @Order(8500.0)
+    public class FraisEnvoiColumn extends AbstractIntegerColumn {
+
+      @Override
+      protected String getConfiguredHeaderText() {
+        return TEXTS.get("fraisDenvoi");
       }
     }
 
@@ -467,6 +485,26 @@ public class OperationTablePage extends AbstractPageWithTable<Table> {
           }
         }
         super.execOwnerValueChanged(newOwnerValue);
+      }
+    }
+
+    @Order(5000.0)
+    public class SupprimerOperationMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("supprimerOperation");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        SupprimerOperationForm form = new SupprimerOperationForm();
+        form.setSupprimerOperationNr(getOpIdColumn().getSelectedValue());
+        form.startModify();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
       }
     }
   }

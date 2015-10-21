@@ -42,8 +42,8 @@ public class ComptesParticuliersService extends AbstractService implements IComp
     .append("c.cpt_nom, ")//
     .append("spcp.spcp_somme_envoyee ")//
     .append("from somme_par_compte_particulier spcp ")//
-    .append("inner join comptes c on spcp.spcp_compte_id = c.cpt_id ")//
-    .append("where spcp.spcp_timestamp = :{form.idFromTimestamp} ")//
+    .append("inner join comptes c on (spcp.spcp_compte_id = c.cpt_id and c.cpt_actif = 1) ")//
+    .append("where spcp.spcp_timestamp = :{form.idFromTimestamp} and spcp.spcp_actif = 1 ")//
     .append("into :{formresp.sommeParCompteId}, :{formresp.compteParticulier}, :{formresp.sommeEnvoyee} ")//
     ;
     SQL.selectInto(req.toString(), new NVPair("form", formData), new NVPair("formresp", formData.getComptesParticuliers()));

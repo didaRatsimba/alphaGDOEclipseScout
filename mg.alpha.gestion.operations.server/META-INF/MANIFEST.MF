@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: mg.alpha.gestion.operations.server.Activator
 Export-Package: mg.alpha.gestion.operations.server,
+ mg.alpha.gestion.operations.server.mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations,
  mg.alpha.gestion.operations.server.services,
  mg.alpha.gestion.operations.server.services.common.security,
  mg.alpha.gestion.operations.server.services.common.sql,

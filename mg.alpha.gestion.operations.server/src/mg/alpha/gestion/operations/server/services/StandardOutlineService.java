@@ -40,15 +40,17 @@ public class StandardOutlineService extends AbstractService implements IStandard
     .append("o.op_type, ")//
     .append("c.cpt_nom, ")//
     .append("o.op_compte_particulier, ")//
+    .append("o.op_designation, ")//
     .append("o.op_devise, ")//
     .append("o.op_montant, ")//
+    .append("o.op_frais_envoi, ")//
     .append("o.op_cours_change, ")//
     .append("o.op_timestamp, ")//
     .append("vic.vic_somme_a_partager ")//
     .append("from operations o ")//
-    .append("inner join comptes c on o.op_compte = c.cpt_id ")//
-    .append("left outer join vente_infos_complementaires vic on o.op_timestamp = vic.vic_timestamp ")//
-    .append("where 1 = 1 ");// nécessaire car on ne sait pas si des critères existent
+    .append("inner join comptes c on (o.op_compte = c.cpt_id and c.cpt_actif = 1) ")//
+    .append("left outer join vente_infos_complementaires vic on (o.op_timestamp = vic.vic_timestamp and vic.vic_actif = 1) ")//
+    .append("where o.op_actif = 1 ");// nécessaire car on ne sait pas si des critères existent
 //    .append("and o.op_compte = c.cpt_id ");
     if (operationsSearchFormData.getDateOperationFrom() != null && operationsSearchFormData.getDateOperationTo() != null) {
       if (operationsSearchFormData.getDateOperationFrom().getValue() != null) {
@@ -68,6 +70,9 @@ public class StandardOutlineService extends AbstractService implements IStandard
     if (operationsSearchFormData.getDevise() != null && !StringUtility.isNullOrEmpty(operationsSearchFormData.getDevise().getValue())) {
       req.append("and UPPER(o.op_devise) LIKE UPPER(:{ope.devise}) ");
     }
+    if (operationsSearchFormData.getDesignation() != null && !StringUtility.isNullOrEmpty(operationsSearchFormData.getDesignation().getValue())) {
+      req.append("and UPPER(o.op_designation) LIKE UPPER(:{ope.designation}) ");
+    }
     if (operationsSearchFormData.getMontantOperation() != null && operationsSearchFormData.getMontantOperation().getValue() != null) {
       req.append("and o.op_montant >= ").append(NumberUtility.toDouble(operationsSearchFormData.getMontantOperation().getValue()).doubleValue()).append(" ");
     }
@@ -76,8 +81,8 @@ public class StandardOutlineService extends AbstractService implements IStandard
     }
     req.append("order by o.op_date desc ")//
     .append("into :{page.opId}, :{page.dateOperation}, :{page.typeOperation}, ")//
-    //, :{page.sommeAPartagerCompl}
-    .append(":{page.compteOperation}, :{page.compteParticulier}, :{page.devise}, :{page.montantOperation}, :{page.coursApplique}, :{page.timestamp}, :{page.sommeAPartagerCompl}");
+    .append(":{page.compteOperation}, :{page.compteParticulier}, :{page.designation}, ")//
+    .append(":{page.devise}, :{page.montantOperation}, :{page.fraisEnvoi}, :{page.coursApplique}, :{page.timestamp}, :{page.sommeAPartagerCompl}");
     SQL.selectInto(req.toString(), new NVPair("ope", operationsSearchFormData), new NVPair("page", pageData));
     return pageData;
   }
@@ -87,7 +92,7 @@ public class StandardOutlineService extends AbstractService implements IStandard
     ComptesTablePageData pageData = new ComptesTablePageData();
     StringBuilder req = new StringBuilder();
     req.append("select c.cpt_id, c.cpt_nom, c.cpt_particulier from comptes c ")//
-    .append("where 1=1 ");//
+    .append("where c.cpt_actif = 1 ");//
     if (searchFormData.getLibelleCompte() != null && !StringUtility.isNullOrEmpty(searchFormData.getLibelleCompte().getValue())) {
       String s = searchFormData.getLibelleCompte().getValue().toUpperCase(Locale.FRANCE);
       req.append("and UPPER(c.cpt_nom) LIKE '%").append(s).append("%'");//
@@ -120,7 +125,7 @@ public class StandardOutlineService extends AbstractService implements IStandard
     req.append("select d.dpo_real_id, o.op_date, d.dpo_debit, c.cpt_nom, d.dpo_benefice from debit_par_operation d ")//
     .append("inner join operations o on d.dpo_timestamp = o.op_timestamp ")//
     .append("inner join comptes c on o.op_compte = c.cpt_id ")//
-    .append("where d.dpo_benefice > 0 ");//
+    .append("where d.dpo_benefice > 0 and d.dpo_actif = 1 ");//
     if (bilanSearchFormData.getEnvoyeA() != null && !StringUtility.isNullOrEmpty(bilanSearchFormData.getEnvoyeA().getValue())) {
       req.append("and UPPER(c.cpt_nom) LIKE UPPER(:{search.envoyeA}) ");//
     }
@@ -159,12 +164,13 @@ public class StandardOutlineService extends AbstractService implements IStandard
     .append("cpar.cpt_nom, ")//
     .append("cenv.cpt_nom, ")//
     .append("o.op_cours_change, ")//
+    .append("spcp.spcp_commentaire, ")//
     .append("o.op_date ")//
     .append("from somme_par_compte_particulier spcp ")//
-    .append("inner join comptes cpar on spcp.spcp_compte_id = cpar.cpt_id ")//
-    .append("inner join operations o on spcp.spcp_timestamp = o.op_timestamp ")//
-    .append("inner join comptes cenv on o.op_compte = cenv.cpt_id ")//
-    .append("where UPPER(o.op_type) LIKE UPPER('v') ");//
+    .append("inner join comptes cpar on (spcp.spcp_compte_id = cpar.cpt_id and cpar.cpt_actif = 1) ")//
+    .append("inner join operations o on (spcp.spcp_timestamp = o.op_timestamp and o.op_actif = 1) ")//
+    .append("inner join comptes cenv on (o.op_compte = cenv.cpt_id and cenv.cpt_actif = 1) ")//
+    .append("where UPPER(o.op_type) LIKE UPPER('v') and spcp.spcp_actif = 1 ");//
 
     if (compteParticuliersSearchFormData.getCompteDenvoi() != null && !StringUtility.isNullOrEmpty(compteParticuliersSearchFormData.getCompteDenvoi().getValue())) {
       req.append("and UPPER(cenv.cpt_nom) LIKE UPPER(:{search.compteDenvoi}) ");//
@@ -194,6 +200,7 @@ public class StandardOutlineService extends AbstractService implements IStandard
     .append(":{page.compteParticulier}, ")//
     .append(":{page.compteDenvoi}, ")//
     .append(":{page.prixDeVenteUnite}, ")//
+    .append(":{page.commentaire}, ")//
     .append(":{page.dateEnvoi}")//
     ;
     SQL.selectInto(req.toString(), new NVPair("search", compteParticuliersSearchFormData), new NVPair("page", pageData));

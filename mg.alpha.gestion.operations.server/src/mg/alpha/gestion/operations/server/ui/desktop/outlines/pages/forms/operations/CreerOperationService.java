@@ -43,14 +43,16 @@ public class CreerOperationService extends AbstractService implements ICreerOper
       if (formData.getTypeGroup().getValue().equalsIgnoreCase("A")) {
         req.append("INSERT INTO operations ")//
         .append("(op_id , op_date, op_type, op_compte, ")//
-        .append("op_devise, op_montant, op_cours_change, op_timestamp) ")//
+        .append("op_devise, op_designation, op_montant, op_cours_change, op_frais_envoi, op_timestamp) ")//
         .append("VALUES (null, ")//
         .append("DATE_FORMAT(:dateOperation, '%Y-%m-%d %H:%i'), ")//
         .append("UPPER('a'), ")//
         .append(":compteId, ")//
         .append(":deviseGroup, ")//
+        .append(":designation, ")//
         .append(":montantOperation, ")//
         .append(":coursColumnHeader, ")//
+        .append(":fraisDenvoi, ")//
         .append(":idFromTimestamp")//
         .append(")")//
         ;
@@ -87,15 +89,17 @@ public class CreerOperationService extends AbstractService implements ICreerOper
 
           req.append("INSERT INTO operations ")//
           .append("(op_id , op_date, op_type, op_compte, op_compte_particulier, ")//
-          .append("op_devise, op_montant, op_cours_change, op_timestamp) ")//
+          .append("op_devise, op_designation, op_montant, op_cours_change, op_frais_envoi, op_timestamp) ")//
           .append("VALUES (null, ")//
           .append("DATE_FORMAT(:dateOperation, '%Y-%m-%d %H:%i'), ")//
           .append("UPPER('v'), ")//
           .append(":compteId, ")//
           .append(":comptesPartages, ")//
           .append(":deviseGroup, ")//
+          .append(":designation, ")//
           .append(":montantOperation, ")//
           .append(":coursColumnHeader, ")//
+          .append(":fraisDenvoi, ")//
           .append(":idFromTimestamp")//
           .append(")")//
           ;

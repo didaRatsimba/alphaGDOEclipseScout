@@ -36,14 +36,14 @@ public class PartagerVersComptesParticuliersService extends AbstractService impl
     ;
     SQL.update(reqUpdateVic.toString(), new NVPair("page", formData));
     StringBuilder reqInsertSpcp = new StringBuilder().append("insert into somme_par_compte_particulier ")//
-    .append("(spcp_real_id, spcp_timestamp, spcp_compte_id, spcp_somme_envoyee) ")//
-    .append("values (null, :{page.creationTimestamp}, :{page.compteParticulier}, :{page.sommeAEnvoyer})")//
+    .append("(spcp_real_id, spcp_timestamp, spcp_compte_id, spcp_somme_envoyee, spcp_commentaire) ")//
+    .append("values (null, :{page.creationTimestamp}, :{page.compteParticulier}, :{page.sommeAEnvoyer}, :{page.commentaire})")//
     ;
 
     SQL.insert(reqInsertSpcp.toString(), new NVPair("page", formData));
     Long timestamp = formData.getCreationTimestamp();
     StringBuilder reqSelectIntoCompte = new StringBuilder()//
-    .append("select op.op_compte_particulier from operations op where op.op_timestamp = ").append(timestamp);
+    .append("select op.op_compte_particulier from operations op where op.op_actif = 1 and op.op_timestamp = ").append(timestamp);
     ResultSet result = null;
     try {
       result = SQL.getConnection().prepareStatement(reqSelectIntoCompte.toString()).executeQuery();
@@ -60,7 +60,6 @@ public class PartagerVersComptesParticuliersService extends AbstractService impl
         while (result.next()) {
           String resulttemp = result.getString("op_compte_particulier");
           if (resulttemp != null) {
-            System.out.println(resulttemp);
             compteParticulier = Integer.valueOf(resulttemp).intValue() + 1;
             compteValue = String.valueOf(compteParticulier);
           }

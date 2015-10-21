@@ -69,6 +69,7 @@ public class ComptesParticuliersTablePageData extends AbstractTablePageData {
     public static final String prixDeVenteUnite = "prixDeVenteUnite";
     public static final String dateEnvoi = "dateEnvoi";
     public static final String timestamp = "timestamp";
+    public static final String commentaire = "commentaire";
     private Long m_sommeParCompteParticulierId;
     private String m_compteParticulier;
     private String m_compteDenvoi;
@@ -76,6 +77,7 @@ public class ComptesParticuliersTablePageData extends AbstractTablePageData {
     private BigDecimal m_prixDeVenteUnite;
     private Date m_dateEnvoi;
     private Long m_timestamp;
+    private String m_commentaire;
 
     public ComptesParticuliersTableRowData() {
     }
@@ -183,6 +185,21 @@ public class ComptesParticuliersTablePageData extends AbstractTablePageData {
      */
     public void setTimestamp(Long timestamp) {
       m_timestamp = timestamp;
+    }
+
+    /**
+     * @return the Commentaire
+     */
+    public String getCommentaire() {
+      return m_commentaire;
+    }
+
+    /**
+     * @param commentaire
+     *          the Commentaire to set
+     */
+    public void setCommentaire(String commentaire) {
+      m_commentaire = commentaire;
     }
   }
 }

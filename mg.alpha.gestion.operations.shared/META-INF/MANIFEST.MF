@@ -5,6 +5,7 @@ Bundle-SymbolicName: mg.alpha.gestion.operations.shared;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: mg.alpha.gestion.operations.shared.Activator
 Export-Package: mg.alpha.gestion.operations.shared,
+ mg.alpha.gestion.operations.shared.mg.alpha.gestion.operations.client.ui.desktop.outlines.pages.forms.operations,
  mg.alpha.gestion.operations.shared.services,
  mg.alpha.gestion.operations.shared.services.code,
  mg.alpha.gestion.operations.shared.services.common.text,

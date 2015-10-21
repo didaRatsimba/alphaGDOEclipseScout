@@ -17,7 +17,7 @@ public class CompteParticulierLookupService extends AbstractSqlLookupService<Lon
     StringBuilder req = new StringBuilder("")//
     .append("select c.cpt_id, c.cpt_nom ")//
     .append("from comptes c ")//
-    .append("where 1=1 ")//
+    .append("where c.cpt_actif = 1 ")//
     .append("and c.cpt_particulier = 1").append("<key> and c.cpt_id = :key </key> ")//
     .append("<text>and upper(c.cpt_nom) like upper(:text )</text> ")//
 //        .append("<text> ").append("and c.cpt_nom LIKE '%").append(":text").append("%' ").append("</text> ")//
